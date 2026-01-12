@@ -1,0 +1,4254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RozZz Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ========================================
+           CUSTOMIZATION SECTION
+           Edit these variables to customize colors and fonts
+           ======================================== */
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-gold: #F4E4BC;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%);
+            --dark-bg: #0A0A0A;
+            --dark-secondary: #141414;
+            --dark-tertiary: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* Ensure all images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ========================================
+           SPLASH SCREEN STYLES
+           ======================================== */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        .splash-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .splash-text {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            display: inline-block;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards 0.2s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .splash-subtitle {
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards 0.6s;
+            font-weight: 300;
+        }
+
+        /* ========================================
+           NAVIGATION STYLES
+           ======================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 3rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 30px;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: all 0.3s ease;
+        }
+
+        /* ========================================
+           HERO SECTION STYLES
+           ======================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 6rem 2rem;
+            overflow: hidden;
+            background-image: url('images/4.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                    rgba(10, 10, 10, 0.6) 0%,
+                    rgba(10, 10, 10, 0.5) 50%,
+                    rgba(10, 10, 10, 0.6) 100%);
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center,
+                    rgba(212, 175, 55, 0.15) 0%,
+                    transparent 70%);
+            mix-blend-mode: overlay;
+            z-index: 0;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        .hero-divider {
+            width: 100px;
+            height: 1px;
+            background: var(--gold-gradient);
+            margin: 0 auto 3rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.5s;
+            z-index: 2;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--primary-gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scaleY(0.8);
+            }
+        }
+
+        /* ========================================
+           SECTION STYLES
+           ======================================== */
+        section {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 1px;
+            background: var(--gold-gradient);
+            margin: 0 auto;
+        }
+
+        /* ========================================
+           ABOUT SECTION STYLES
+           ======================================== */
+        #about {
+            background: var(--dark-secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-frame {
+            position: relative;
+            padding: 2rem;
+            background: var(--gold-gradient);
+        }
+
+        .about-image-inner {
+            position: relative;
+            overflow: hidden;
+            background: var(--dark-tertiary);
+            padding: 0;
+        }
+
+        .about-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            aspect-ratio: 3/4;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover .about-photo {
+            transform: scale(1.05);
+        }
+
+        .about-image-decoration {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            z-index: -1;
+        }
+
+        .about-text h3 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .about-text h3 span {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 4rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .stat-item h4 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 500;
+        }
+
+        .stat-item p {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        /* ========================================
+           PROJECTS SECTION STYLES
+           ======================================== */
+        #projects {
+            background: var(--dark-bg);
+        }
+
+        #all-projects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            height: 100%;
+            background: var(--dark-bg);
+            background-image: url('images/2.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            z-index: 9998;
+            overflow-y: auto;
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        #all-projects.active {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Background overlay - fixed to viewport for consistent blending */
+        #all-projects::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg,
+                    rgba(10, 10, 10, 0.85) 0%,
+                    rgba(10, 10, 10, 0.75) 50%,
+                    rgba(10, 10, 10, 0.85) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #all-projects::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(ellipse at center,
+                    rgba(212, 175, 55, 0.1) 0%,
+                    transparent 70%);
+            mix-blend-mode: overlay;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #all-projects.active {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .all-projects-container {
+            position: relative;
+            z-index: 1;
+            padding-top: 6rem;
+            padding-bottom: 4rem;
+            min-height: 100vh;
+        }
+
+        #all-projects .section-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        #all-projects .section-header,
+        #all-projects .projects-controls,
+        #all-projects .projects-grid,
+        #all-projects .results-count {
+            position: relative;
+            z-index: 2;
+        }
+
+        .close-all-projects-btn {
+            position: fixed;
+            top: 2rem;
+            right: 3rem;
+            width: 50px;
+            height: 50px;
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scroller for multiple images */
+        .project-image-scroller {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            height: 100%;
+            width: 100%;
+            scrollbar-width: none;
+        }
+
+        .project-image-scroller::-webkit-scrollbar {
+            display: none;
+        }
+
+        .project-image-scroller img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            scroll-snap-align: start;
+        }
+
+        .gallery-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--primary-gold);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            font-size: 1.2rem;
+        }
+
+        .project-image:hover .gallery-nav-btn,
+        .project-modal-image:hover .gallery-nav-btn {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .gallery-nav-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            background: var(--dark-tertiary);
+            opacity: 1;
+        }
+
+        .gallery-nav-btn.prev {
+            left: 10px;
+        }
+
+        .gallery-nav-btn.next {
+            right: 10px;
+        }
+
+        .gallery-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            z-index: 5;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .close-all-projects-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--primary-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .close-all-projects-btn:hover {
+            background: var(--gold-gradient);
+            border-color: var(--primary-gold);
+            transform: rotate(90deg);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .close-all-projects-btn:hover svg {
+            stroke: var(--dark-bg);
+            transform: rotate(90deg);
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        /* ========================================
+           PROJECTS CONTROLS STYLES (SEARCH & SORT)
+           ======================================== */
+        .projects-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .search-container {
+            flex: 1;
+            position: relative;
+            max-width: 500px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--primary-gold);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.5rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .sort-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sort-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .sort-select {
+            padding: 1rem 1.5rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23D4AF37' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 12px;
+            padding-right: 3rem;
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .sort-select:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .results-count {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .results-count strong {
+            color: var(--primary-gold);
+            font-weight: 500;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .no-results h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .no-results p {
+            font-size: 1rem;
+        }
+
+        .projects-footer {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.25rem 3rem;
+            background: var(--gold-gradient);
+            color: var(--dark-bg);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-all-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .view-all-btn:hover::before {
+            left: 100%;
+        }
+
+        .view-all-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            gap: 1.5rem;
+        }
+
+        .view-all-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .view-all-btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        .project-card {
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: var(--dark-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image svg {
+            width: 60px;
+            height: 60px;
+            fill: rgba(212, 175, 55, 0.3);
+            transition: transform 0.5s ease, fill 0.5s ease;
+        }
+
+        .project-card:hover .project-image svg {
+            transform: scale(1.1);
+            fill: rgba(212, 175, 55, 0.5);
+        }
+
+        .project-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-category {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .project-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover .project-title {
+            color: var(--primary-gold);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: gap 0.3s ease, color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--primary-gold);
+            gap: 1rem;
+        }
+
+        .project-link svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-link:hover svg {
+            transform: translateX(5px);
+        }
+
+        /* ========================================
+           PROJECT MODAL STYLES (PREMIUM)
+           ======================================== */
+        .project-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .project-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .project-modal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-modal-close {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            color: var(--text-primary);
+        }
+
+        .project-modal-close:hover {
+            background: var(--gold-gradient);
+            border-color: var(--primary-gold);
+            transform: rotate(90deg);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            color: var(--dark-bg);
+        }
+
+        .project-modal-close svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        .project-modal-content {
+            background: var(--dark-secondary);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            transform: scale(0.9) translateY(30px);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
+        }
+
+        .project-modal-overlay.active .project-modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .project-modal-image-container {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: var(--dark-tertiary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-modal-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+        }
+
+        .project-modal-image svg {
+            width: 200px;
+            height: 200px;
+            fill: rgba(212, 175, 55, 0.4);
+            transition: transform 0.5s ease, fill 0.5s ease;
+        }
+
+        .project-modal-overlay.active .project-modal-image svg {
+            fill: rgba(212, 175, 55, 0.6);
+            transform: scale(1.05);
+        }
+
+        .project-modal-body {
+            padding: 3rem;
+        }
+
+        .project-modal-header {
+            margin-bottom: 2rem;
+        }
+
+        .project-modal-category {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .project-modal-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.05em;
+        }
+
+        .project-modal-divider {
+            width: 100px;
+            height: 2px;
+            background: var(--gold-gradient);
+            margin-top: 1rem;
+        }
+
+        .project-modal-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        .project-modal-description p {
+            margin-bottom: 1rem;
+        }
+
+        .project-modal-description p:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-modal-actions {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .project-modal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--gold-gradient);
+            color: var(--dark-bg);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-modal-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-modal-link:hover::before {
+            left: 100%;
+        }
+
+        .project-modal-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .project-modal-link svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .project-modal-link:hover svg {
+            transform: translate(5px, -5px);
+        }
+
+        /* Prevent body scroll when modal is open */
+        body.project-modal-open {
+            overflow: hidden;
+        }
+
+        /* Responsive Design for Project Modal */
+        @media (max-width: 768px) {
+            .project-modal-container {
+                padding: 2rem 1rem;
+            }
+
+            .project-modal-content {
+                border-radius: 8px;
+            }
+
+            .project-modal-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .project-modal-title {
+                font-size: 2rem;
+            }
+
+            .project-modal-description {
+                font-size: 1rem;
+            }
+
+            .project-modal-image svg {
+                width: 150px;
+                height: 150px;
+            }
+
+            .project-modal-image {
+                padding: 2rem;
+            }
+
+            .project-modal-close {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            .project-modal-close svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* ========================================
+           CONTACT SECTION STYLES
+           ======================================== */
+        #contact {
+            background: var(--dark-secondary);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info h3 span {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .contact-item:hover {
+            border-color: var(--primary-gold);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+        }
+
+        .contact-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--dark-bg);
+        }
+
+        .contact-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details span {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .copy-hint {
+            font-size: 0.7rem;
+            color: var(--primary-gold);
+            font-weight: 300;
+            opacity: 0.7;
+        }
+
+        .phone-item {
+            user-select: all;
+            -webkit-user-select: all;
+            -moz-user-select: all;
+            -ms-user-select: all;
+        }
+
+        .phone-item:hover {
+            border-color: var(--primary-gold);
+        }
+
+        .copy-notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gold-gradient);
+            color: var(--dark-bg);
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 10000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-form {
+            background: var(--dark-tertiary);
+            padding: 3rem;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 3rem;
+            background: var(--gold-gradient);
+            color: var(--dark-bg);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            gap: 1.5rem;
+        }
+
+        .submit-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
+            gap: 1rem;
+        }
+
+        .form-group input:invalid:not(:placeholder-shown),
+        .form-group textarea:invalid:not(:placeholder-shown) {
+            border-color: rgba(255, 68, 68, 0.5);
+        }
+
+        .form-group input:valid:not(:placeholder-shown),
+        .form-group textarea:valid:not(:placeholder-shown) {
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        /* ========================================
+           FOOTER STYLES
+           ======================================== */
+        footer {
+            background: var(--dark-bg);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            position: relative;
+            min-height: 3rem;
+            display: inline-block;
+        }
+
+        .footer-logo::after {
+            content: '|';
+            color: var(--primary-gold);
+            margin-left: 2px;
+            animation: cursorBlink 1s infinite;
+        }
+
+        @keyframes cursorBlink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .footer-tagline {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--gold-gradient);
+            border-color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary-gold);
+            transition: fill 0.3s ease;
+        }
+
+        .social-link:hover svg {
+            fill: var(--dark-bg);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* ========================================
+           PREMIUM ANIMATIONS
+           ======================================== */
+
+        /* Animated Gradient Background */
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .gold-gradient-animated {
+            background: linear-gradient(-45deg, #D4AF37, #F4E4BC, #D4AF37, #F4E4BC);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-animation-delay-1 {
+            animation-delay: 1s;
+        }
+
+        .float-animation-delay-2 {
+            animation-delay: 2s;
+        }
+
+        .float-animation-delay-3 {
+            animation-delay: 3s;
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg,
+                    var(--primary-gold) 0%,
+                    #F4E4BC 50%,
+                    var(--primary-gold) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* Rotate Animation */
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .rotate-slow {
+            animation: rotate 20s linear infinite;
+        }
+
+        /* Scale In Animation */
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .scale-in {
+            animation: scaleIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Slide In from Left */
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Slide In from Right */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Fade In with Scale */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .fade-in-scale {
+            animation: fadeInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Glow Animation */
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.4);
+            }
+        }
+
+        .glow-animation {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        /* 3D Tilt Effect */
+        .tilt-3d {
+            transition: transform 0.3s ease;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gold-gradient);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        /* Cursor Tracker */
+        .cursor-tracker {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-tracker.active {
+            opacity: 0.6;
+        }
+
+        /* Animated Particles Background */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 15s infinite ease-in-out;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-100px) translateX(100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ========================================
+           SCROLL ANIMATIONS
+           ======================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-fade {
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-fade.active {
+            opacity: 1;
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .reveal-slide-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-slide-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-slide-right {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-slide-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        .reveal-delay-5 {
+            transition-delay: 0.5s;
+        }
+
+        .reveal-delay-6 {
+            transition-delay: 0.6s;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVENESS
+           ======================================== */
+
+        /* Large Desktops - 4 columns */
+        @media (min-width: 1400px) {
+            .projects-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            #all-projects {
+                background-position: center 25%;
+            }
+        }
+
+        /* Desktop view - Adjust background for better face visibility */
+        @media (min-width: 1024px) {
+            #all-projects {
+                background-position: center 15%;
+                background-size: cover;
+            }
+        }
+
+        /* Extra large desktop screens - Fine-tune positioning */
+        @media (min-width: 1920px) {
+            #all-projects {
+                background-position: center 10%;
+            }
+        }
+
+        /* Large Tablets and Small Desktops */
+        @media (max-width: 1200px) {
+            .section-container {
+                max-width: 100%;
+                padding: 0 2rem;
+            }
+
+            .nav-container {
+                max-width: 100%;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 1.2rem 2rem;
+            }
+
+            .navbar.scrolled {
+                padding: 0.8rem 2rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-image {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .view-all-btn {
+                padding: 1rem 2.5rem;
+                font-size: 0.85rem;
+            }
+
+            .hero .view-all-btn {
+                margin-top: 2rem;
+                padding: 1rem 2.5rem;
+                font-size: 0.85rem;
+            }
+
+            .about-text .view-all-btn {
+                margin-top: 2.5rem;
+                padding: 1rem 2.5rem;
+                font-size: 0.85rem;
+            }
+
+            .section-header {
+                margin-bottom: 3.5rem;
+            }
+
+            .about-text h3 {
+                font-size: 2rem;
+            }
+
+            .stat-item h4 {
+                font-size: 2.5rem;
+            }
+
+            .about-stats {
+                gap: 3rem;
+            }
+        }
+
+        /* Tablets */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .navbar.scrolled {
+                padding: 0.7rem 1.5rem;
+            }
+
+            .nav-logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--dark-bg);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.5s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu-btn.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            .mobile-menu-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-btn.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
+            .hero {
+                padding: 5rem 1.5rem;
+                background-attachment: scroll;
+                min-height: 100vh;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 8vw, 5rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+                padding: 0 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-divider {
+                margin: 0 auto 2rem;
+            }
+
+            .hero .view-all-btn {
+                margin-top: 1.5rem;
+                padding: 1rem 2.5rem;
+                font-size: 0.85rem;
+                width: auto;
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                display: flex;
+                justify-content: center;
+            }
+
+            .about-text .view-all-btn {
+                margin-top: 2.5rem;
+                padding: 1rem 2.5rem;
+                font-size: 0.85rem;
+                width: auto;
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                display: flex;
+                justify-content: center;
+            }
+
+            .scroll-indicator {
+                bottom: 2rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .section-container {
+                padding: 0;
+            }
+
+            .section-header {
+                margin-bottom: 3rem;
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 6vw, 3rem);
+                margin-bottom: 1rem;
+            }
+
+            .section-label {
+                font-size: 0.8rem;
+            }
+
+            .about-content {
+                gap: 2.5rem;
+            }
+
+            .about-image {
+                max-width: 100%;
+            }
+
+            .about-image-frame {
+                padding: 1.5rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .about-text p {
+                font-size: 0.95rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .about-stats {
+                flex-wrap: wrap;
+                gap: 2rem;
+                justify-content: center;
+                margin-top: 2rem;
+                padding-top: 2rem;
+            }
+
+            .stat-item {
+                text-align: center;
+            }
+
+            .stat-item h4 {
+                font-size: 2.2rem;
+            }
+
+            .stat-item p {
+                font-size: 0.8rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project-card {
+                max-width: 100%;
+            }
+
+            .projects-controls {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .sort-container {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .sort-select {
+                width: 100%;
+            }
+
+            .view-all-btn {
+                padding: 1rem 2rem;
+                font-size: 0.8rem;
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .project-content {
+                padding: 1.5rem;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+            }
+
+            .contact-content {
+                gap: 2.5rem;
+            }
+
+            .contact-info h3 {
+                font-size: 2rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .contact-info p {
+                font-size: 0.95rem;
+                margin-bottom: 2rem;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 0.9rem 1.2rem;
+                font-size: 0.95rem;
+            }
+
+            .submit-btn {
+                padding: 1rem 2.5rem;
+                font-size: 0.85rem;
+            }
+
+            .contact-item {
+                padding: 1.2rem;
+            }
+
+            .footer-content {
+                padding: 0 1rem;
+            }
+
+            .footer-logo {
+                font-size: 2rem;
+            }
+
+            .footer-social {
+                gap: 1rem;
+            }
+
+            .social-link {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Mobile Phones */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .navbar.scrolled {
+                padding: 0.6rem 1rem;
+            }
+
+            .nav-logo {
+                font-size: 1.3rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 10vw, 4rem);
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 0.2em;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+                padding: 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero .view-all-btn {
+                margin-top: 1.5rem;
+                padding: 0.9rem 2rem;
+                font-size: 0.8rem;
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .about-text .view-all-btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 0.9rem 2rem;
+                font-size: 0.8rem;
+                margin-top: 2rem;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .section-header {
+                margin-bottom: 2.5rem;
+            }
+
+            .section-title {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+            }
+
+            .section-label {
+                font-size: 0.75rem;
+            }
+
+            .about-image-frame {
+                padding: 1rem;
+            }
+
+            .about-image-inner {
+                padding: 0;
+            }
+
+            .about-text h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .about-text p {
+                font-size: 0.9rem;
+            }
+
+            .about-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .stat-item h4 {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .view-all-btn {
+                padding: 0.9rem 1.8rem;
+                font-size: 0.75rem;
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .projects-controls {
+                padding: 1.2rem;
+                gap: 1.2rem;
+            }
+
+            .search-input,
+            .sort-select {
+                padding: 0.9rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .search-icon {
+                left: 1.2rem;
+                width: 18px;
+                height: 18px;
+            }
+
+            .search-input {
+                padding-left: 3rem;
+            }
+
+            .close-all-projects-btn {
+                top: 1.5rem;
+                right: 1.5rem;
+                width: 45px;
+                height: 45px;
+            }
+
+            .close-all-projects-btn svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .all-projects-container {
+                padding-top: 5rem;
+                padding-bottom: 3rem;
+            }
+
+            #all-projects {
+                background-attachment: scroll;
+                height: 100%;
+                background-position: center 25%;
+            }
+
+            /* On mobile, overlays stay fixed to viewport for consistent backdrop */
+            #all-projects::before,
+            #all-projects::after {
+                position: fixed;
+            }
+
+            .projects-footer {
+                margin-top: 2rem;
+            }
+
+            .project-content {
+                padding: 1.2rem;
+            }
+
+            .project-title {
+                font-size: 1.2rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+            }
+
+            .contact-info h3 {
+                font-size: 1.6rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem 2rem;
+            }
+
+            .contact-item {
+                padding: 1rem;
+                flex-direction: row;
+            }
+
+            .contact-icon {
+                width: 45px;
+                height: 45px;
+            }
+
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+
+            .footer-tagline {
+                font-size: 0.9rem;
+            }
+
+            .social-link {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+        /* Small Mobile Phones */
+        @media (max-width: 360px) {
+            .hero {
+                padding: 3rem 0.8rem;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 12vw, 3.5rem);
+            }
+
+            section {
+                padding: 3rem 0.8rem;
+            }
+
+            .section-title {
+                font-size: clamp(1.6rem, 10vw, 2.2rem);
+            }
+
+            .about-image-frame {
+                padding: 0.8rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.3rem;
+            }
+
+            .hero .view-all-btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.75rem;
+                max-width: 260px;
+                width: 100%;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .about-text .view-all-btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.75rem;
+                max-width: 260px;
+                width: 100%;
+                margin-top: 1.5rem;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .contact-form {
+                padding: 1.2rem;
+            }
+
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Landscape Orientation for Mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 3rem 2rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 6vw, 4rem);
+                margin-bottom: 1rem;
+            }
+
+            .hero-description {
+                margin-bottom: 1.5rem;
+            }
+
+            .hero .view-all-btn {
+                margin-top: 1rem;
+                padding: 0.8rem 2rem;
+                font-size: 0.8rem;
+                justify-content: center;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+
+            .nav-links a,
+            .project-link,
+            .submit-btn,
+            .contact-item,
+            .social-link {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            .project-card {
+                cursor: default;
+            }
+
+            .project-card:active {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* ========================================
+           RESUME SECTION STYLES (PREMIUM)
+           ======================================== */
+        .resume-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .resume-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .resume-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 3rem;
+            min-height: 100vh;
+            position: relative;
+            transform: translateY(30px);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .resume-overlay.active .resume-container {
+            transform: translateY(0);
+        }
+
+        .resume-close-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            color: var(--text-primary);
+        }
+
+        .resume-close-btn:hover {
+            background: var(--gold-gradient);
+            border-color: var(--primary-gold);
+            transform: rotate(90deg);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            color: var(--dark-bg);
+        }
+
+        .resume-close-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        .resume-content {
+            background: var(--dark-secondary);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.1);
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resume-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold-gradient);
+        }
+
+        /* Resume Header */
+        .resume-header {
+            margin-bottom: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .resume-header-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .resume-photo-container {
+            flex-shrink: 0;
+        }
+
+        .resume-photo-frame {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            padding: 4px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .resume-photo-frame:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .resume-photo {
+            width: calc(100% - 8px);
+            height: calc(100% - 8px);
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            background: var(--dark-secondary);
+        }
+
+        .resume-header-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resume-name {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 500;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .resume-title {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .resume-divider {
+            width: 100px;
+            height: 2px;
+            background: var(--gold-gradient);
+            margin-top: 1rem;
+        }
+
+        .resume-contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resume-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .resume-contact-item:hover {
+            color: var(--primary-gold);
+        }
+
+        .resume-contact-item svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* Resume Sections */
+        .resume-section {
+            margin-bottom: 3rem;
+        }
+
+        .resume-section:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        .resume-section-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .resume-section-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .resume-section-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--primary-gold);
+        }
+
+        .resume-section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .resume-section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .resume-section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Resume Items (Experience/Education) */
+        .resume-item {
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .resume-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0.5rem;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .resume-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .resume-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .resume-item-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .resume-item-date {
+            font-size: 0.85rem;
+            color: var(--primary-gold);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .resume-item-company {
+            color: var(--primary-gold);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .resume-item-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .resume-item-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+
+        .resume-item-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        .resume-item-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .skill-category-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--primary-gold);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .skill-tag:hover {
+            background: var(--gold-gradient);
+            color: var(--dark-bg);
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Resume Actions */
+        .resume-actions {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+        }
+
+        .resume-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: var(--gold-gradient);
+            color: var(--dark-bg);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resume-download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .resume-download-btn:hover::before {
+            left: 100%;
+        }
+
+        .resume-download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .resume-download-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+        }
+
+        /* Responsive Design for Resume */
+        @media (max-width: 768px) {
+            .resume-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .resume-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .resume-header-wrapper {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .resume-photo-frame {
+                width: 150px;
+                height: 150px;
+            }
+
+            .resume-header-main {
+                align-items: center;
+            }
+
+            .resume-divider {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .resume-name {
+                font-size: 2rem;
+            }
+
+            .resume-title {
+                font-size: 1rem;
+            }
+
+            .resume-section-title {
+                font-size: 1.4rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .resume-item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .resume-contact-info {
+                flex-direction: column;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resume-close-btn {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            .resume-close-btn svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* Print Styles for Resume */
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+
+            #resumeSection,
+            #resumeSection * {
+                visibility: visible !important;
+            }
+
+            .resume-overlay {
+                visibility: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            #resumeSection {
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 210mm !important;
+                /* Fixed A4 Width */
+                height: 297mm !important;
+                /* Fixed A4 Height */
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: block !important;
+                z-index: 1 !important;
+            }
+
+            .resume-container {
+                width: 100% !important;
+                height: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                transform: none !important;
+            }
+
+            .resume-content {
+                width: 100% !important;
+                height: 100% !important;
+                padding: 15mm !important;
+                /* Professional print margins */
+                background: white !important;
+                color: black !important;
+                box-sizing: border-box !important;
+                font-size: 9.5pt !important;
+                line-height: 1.3 !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            /* Fix Header and Image Alignment */
+            .resume-header {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: flex-start !important;
+                justify-content: space-between !important;
+                margin-bottom: 5mm !important;
+                border-bottom: 2px solid #D4AF37 !important;
+                padding-bottom: 5mm !important;
+            }
+
+            .resume-header-wrapper {
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 20px !important;
+                width: 100% !important;
+            }
+
+            .resume-photo-container {
+                width: 100px !important;
+                height: 100px !important;
+                min-width: 100px !important;
+                margin: 0 !important;
+            }
+
+            .resume-photo-frame {
+                border: 2px solid #D4AF37 !important;
+                border-radius: 4px !important;
+                overflow: hidden !important;
+            }
+
+            .resume-photo {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                display: block !important;
+            }
+
+            .resume-header-main {
+                flex: 1 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+            }
+
+            .resume-name {
+                font-size: 26pt !important;
+                font-weight: bold !important;
+                color: #D4AF37 !important;
+                margin: 0 !important;
+                line-height: 1 !important;
+            }
+
+            .resume-title {
+                font-size: 13pt !important;
+                color: #444 !important;
+                margin-top: 2mm !important;
+            }
+
+            /* Contact Info: Compact Row */
+            .resume-contact-info {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 15px !important;
+                margin-top: 3mm !important;
+                font-size: 8.5pt !important;
+            }
+
+            .resume-contact-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 5px !important;
+            }
+
+            .resume-contact-item svg {
+                width: 12px !important;
+                height: 12px !important;
+                color: #D4AF37 !important;
+            }
+
+            /* Layout optimization to eliminate blank space */
+            .resume-section {
+                margin-bottom: 4mm !important;
+            }
+
+            .resume-section-title {
+                font-size: 12pt !important;
+                font-weight: bold !important;
+                color: #000 !important;
+                text-transform: uppercase !important;
+                border-bottom: 1px solid #eee !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 1mm !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+
+            .resume-section-icon {
+                display: none !important;
+            }
+
+            /* Content Typography */
+            .resume-section-content {
+                margin: 0 !important;
+            }
+
+            .resume-item {
+                margin-bottom: 3mm !important;
+                page-break-inside: avoid !important;
+            }
+
+            .resume-item-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: baseline !important;
+            }
+
+            .resume-item-title {
+                font-size: 10.5pt !important;
+                font-weight: bold !important;
+                margin: 0 !important;
+            }
+
+            .resume-item-date {
+                font-size: 8.5pt !important;
+                color: #666 !important;
+            }
+
+            .resume-item-company {
+                font-size: 9.5pt !important;
+                font-style: italic !important;
+                margin: 0 0 1mm 0 !important;
+                color: #444 !important;
+            }
+
+            .resume-item-list {
+                padding-left: 4mm !important;
+                margin: 1mm 0 !important;
+            }
+
+            .resume-item-list li {
+                margin-bottom: 0.5mm !important;
+                font-size: 8.5pt !important;
+            }
+
+            /* Skills Grid: Print version */
+            .skills-grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr 1fr !important;
+                gap: 10px !important;
+            }
+
+            .skill-category-title {
+                font-size: 9pt !important;
+                font-weight: bold !important;
+                margin-bottom: 1mm !important;
+            }
+
+            .skill-tag {
+                background: #f9f9f9 !important;
+                border: 1px solid #ddd !important;
+                padding: 1mm 2mm !important;
+                font-size: 7.5pt !important;
+                display: inline-block !important;
+                margin: 0.5mm !important;
+                color: #333 !important;
+            }
+
+            .resume-close-btn,
+            .resume-download-btn,
+            .resume-actions {
+                display: none !important;
+            }
+
+            /* Global Print Settings */
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+
+        /* Prevent body scroll when resume is open */
+        body.resume-open {
+            overflow: hidden;
+        }
+
+        /* ========================================
+           AI CHATBOT STYLES
+           ======================================== */
+        .chat-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 10000;
+            font-family: var(--font-body);
+        }
+
+        .chat-fab {
+            width: 60px;
+            height: 60px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .chat-fab:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .chat-fab svg {
+            width: 30px;
+            height: 30px;
+            color: var(--dark-bg);
+        }
+
+        .chat-fab .ping {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 2px solid var(--dark-bg);
+            animation: pulse 2s infinite;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--dark-secondary);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: bottom right;
+        }
+
+        .chat-window.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .chat-header {
+            background: var(--dark-tertiary);
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-avatar {
+            width: 35px;
+            height: 35px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--dark-bg);
+            font-weight: bold;
+        }
+
+        .chat-header-text h4 {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .chat-header-text span {
+            font-size: 0.7rem;
+            color: #22c55e;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+
+        .chat-close:hover {
+            color: var(--primary-gold);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.25rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-gold) var(--dark-bg);
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .message.bot {
+            background: var(--dark-tertiary);
+            color: var(--text-primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .message.user {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            font-weight: 500;
+        }
+
+        .chat-input-area {
+            padding: 1.25rem;
+            background: var(--dark-tertiary);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--dark-bg);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 4px;
+            padding: 0.6rem 1rem;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+        }
+
+        .chat-send {
+            background: var(--gold-gradient);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-send svg {
+            width: 18px;
+            height: 18px;
+            color: var(--dark-bg);
+            transform: rotate(-45deg) translate(2px, -2px);
+        }
+
+        .chat-typing {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: none;
+        }
+
+        /* Language Toggle */
+        .chat-lang-toggle {
+            position: absolute;
+            top: 1.25rem;
+            right: 4.5rem;
+            font-size: 0.65rem;
+            display: flex;
+            gap: 5px;
+            background: var(--dark-bg);
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+        }
+
+        .chat-lang-toggle span.active {
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        @media (max-width: 480px) {
+            .chat-window {
+                width: calc(100vw - 4rem);
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ========================================
+         ANIMATED BACKGROUND ELEMENTS
+         ======================================== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="cursor-tracker" id="cursorTracker"></div>
+    <div class="particles-container" id="particlesContainer"></div>
+
+    <!-- ========================================
+         SPLASH SCREEN
+         ======================================== -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <h1 class="splash-text">RozZz</h1>
+            <p class="splash-subtitle">Hello po!, tuloy po kayo!</p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">ROR</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">Welcome to my portfolio</p>
+            <h1 class="hero-title">
+                I'm <span class="gold-text shimmer-text">Rozel O. Ramos</span>
+            </h1>
+            <div class="hero-divider"></div>
+            <p class="hero-description">
+                Crafting premium digital experiences with elegance, precision, and creative excellence.
+                Transforming visions into sophisticated realities.
+            </p>
+            <a href="#contact" class="view-all-btn" style="margin-top: 2rem;">
+                Start a Project
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ABOUT SECTION
+         ======================================== -->
+    <section id="about">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <p class="section-label">Get to Know Me</p>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="about-content">
+                <div class="about-image reveal reveal-delay-1 float-animation float-animation-delay-1">
+                    <div class="about-image-decoration"></div>
+                    <div class="about-image-frame">
+                        <div class="about-image-inner">
+                            <img src="images/3.png" alt="Rozel O. Ramos" class="about-photo">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-text reveal reveal-delay-2 slide-in-right">
+                    <h3>Creating <span>Impactful</span> Digital Solutions</h3>
+
+                    <!-- Dynamic Bio Container -->
+                    <div id="aboutBio">
+                        <!-- Content will be loaded from siteData -->
+                        <p>Loading biography...</p>
+                    </div>
+
+                    <div class="about-stats">
+                        <div class="stat-item reveal reveal-delay-1 scale-in">
+                            <h4 class="counter" id="statYears" data-target="0">4</h4>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="stat-item reveal reveal-delay-2 scale-in">
+                            <h4 class="counter" id="statProjects" data-target="0">5</h4>
+                            <p>Projects Completed</p>
+                        </div>
+                        <div class="stat-item reveal reveal-delay-3 scale-in">
+                            <h4 class="counter" id="statClients" data-target="0">24</h4>
+                            <p>Happy Clients</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 3rem;">
+                        <a href="#" class="view-all-btn" id="resumeBtn">
+                            View Resume
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                                <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         PROJECTS SECTION
+         ======================================== -->
+    <section id="projects">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <p class="section-label">My Work</p>
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="projects-grid" id="featured-projects-grid">
+                <div style="text-align: center; color: var(--text-secondary); grid-column: 1/-1; padding: 2rem;">
+                    Loading projects...
+                </div>
+
+
+            </div>
+
+            <!-- View All Projects Button -->
+            <div class="projects-footer reveal">
+                <a href="#all-projects" class="view-all-btn">
+                    View All Projects
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         PROJECT DETAIL MODAL
+         ======================================== -->
+    <div id="projectModal" class="project-modal-overlay">
+        <div class="project-modal-container">
+            <button class="project-modal-close" id="projectModalClose" aria-label="Close Project">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="project-modal-content">
+                <div class="project-modal-image-container">
+                    <div class="project-modal-image" id="projectModalImage">
+                        <!-- Image will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="project-modal-body">
+                    <div class="project-modal-header">
+                        <p class="project-modal-category" id="projectModalCategory"></p>
+                        <h2 class="project-modal-title" id="projectModalTitle"></h2>
+                        <div class="project-modal-divider"></div>
+                    </div>
+
+                    <div class="project-modal-description" id="projectModalDescription">
+                        <!-- Description will be inserted here -->
+                    </div>
+
+                    <div class="project-modal-actions">
+                        <a href="#" class="project-modal-link" id="projectModalLink" target="_blank"
+                            rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                            </svg>
+                            Visit Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ALL PROJECTS SECTION (FULL SCREEN MODAL)
+         ======================================== -->
+    <section id="all-projects">
+        <!-- Close Button -->
+        <button class="close-all-projects-btn" id="closeAllProjects" aria-label="Close All Projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </button>
+
+        <div class="section-container all-projects-container">
+            <div class="section-header reveal">
+                <p class="section-label">Complete Portfolio</p>
+                <h2 class="section-title">All Projects</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <!-- Search and Sort Controls -->
+            <div class="projects-controls reveal reveal-delay-1">
+                <div class="search-container">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="M21 21l-4.35-4.35" />
+                    </svg>
+                    <input type="text" id="projectSearch" class="search-input" placeholder="Search projects...">
+                </div>
+                <div class="sort-container">
+                    <label for="projectSort" class="sort-label">Sort by:</label>
+                    <select id="projectSort" class="sort-select">
+                        <option value="default">Default</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="category-asc">Category (A-Z)</option>
+                        <option value="category-desc">Category (Z-A)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid" id="allProjectsGrid">
+                <!-- All projects will be dynamically inserted here -->
+            </div>
+
+            <!-- Results count -->
+            <div class="results-count reveal" id="resultsCount"></div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         CONTACT SECTION
+         ======================================== -->
+    <section id="contact">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <p class="section-label">Get in Touch</p>
+                <h2 class="section-title">Let's Connect</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info reveal reveal-delay-1">
+                    <h3>Let's Create <span>Together</span></h3>
+                    <p>
+                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your
+                        visions.
+                        Feel free to reach out through any of the channels below.
+                    </p>
+
+                    <div class="contact-links">
+                        <!-- Edit contact details below -->
+                        <a href="mailto:rozelramos17@gmail.com" class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <span>rozelramos17@gmail.com</span>
+                            </div>
+                        </a>
+
+                        <a href="mailto:rozelramos15@gmail.com" class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email (Alt)</h4>
+                                <span>rozelramos15@gmail.com</span>
+                            </div>
+                        </a>
+
+                        <a href="tel:+639166219195" class="contact-item phone-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Phone <span class="copy-hint">(Click to call / Right-click to copy)</span></h4>
+                                <span id="phoneNumber">09166219195</span>
+                            </div>
+                        </a>
+
+                        <a href="#" class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Address</h4>
+                                <span>Brgy. Talolong Lopez, Quezon</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form reveal reveal-delay-2">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            Send Message
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         RESUME SECTION (MODAL/OVERLAY)
+         ======================================== -->
+    <div id="resumeSection" class="resume-overlay">
+        <div class="resume-container">
+            <button class="resume-close-btn" id="resumeCloseBtn" aria-label="Close Resume">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="resume-content">
+                <!-- Resume Header -->
+                <div class="resume-header">
+                    <div class="resume-header-wrapper">
+                        <div class="resume-photo-container">
+                            <div class="resume-photo-frame">
+                                <img src="images/3.png" alt="Rozel O. Ramos" class="resume-photo">
+                            </div>
+                        </div>
+                        <div class="resume-header-main">
+                            <h1 class="resume-name">Rozel O. Ramos</h1>
+                            <p class="resume-title">Professional Developer & Creative Problem Solver</p>
+                            <div class="resume-divider"></div>
+                        </div>
+                    </div>
+                    <div class="resume-contact-info">
+                        <div class="resume-contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                            <span>rozelramos17@gmail.com</span>
+                        </div>
+                        <div class="resume-contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                            <span>+63 916 621 9195</span>
+                        </div>
+                        <div class="resume-contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                            <span>Quezon, Philippines</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="resume-section">
+                    <h2 class="resume-section-title">
+                        <span class="resume-section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </span>
+                        Professional Summary
+                    </h2>
+                    <div id="resumeSummary" class="resume-section-content">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="resume-section">
+                    <h2 class="resume-section-title">
+                        <span class="resume-section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                            </svg>
+                        </span>
+                        Professional Experience
+                    </h2>
+                    <div id="resumeExperience" class="resume-section-content">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="resume-section">
+                    <h2 class="resume-section-title">
+                        <span class="resume-section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                        </span>
+                        Technical Skills
+                    </h2>
+                    <div id="resumeSkills" class="resume-section-content">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="resume-section">
+                    <h2 class="resume-section-title">
+                        <span class="resume-section-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                            </svg>
+                        </span>
+                        Education
+                    </h2>
+                    <div id="resumeEducation" class="resume-section-content">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+
+                <!-- Download Button -->
+                <div class="resume-actions">
+                    <button class="resume-download-btn" id="resumeDownloadBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download Resume
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo" id="footerLogo"></div>
+            <p class="footer-tagline">Excellence in every endeavor</p>
+
+            <!-- Edit social links below -->
+            <div class="footer-social">
+                <a href="https://www.facebook.com/rozelolanda.ramos.9" target="_blank" rel="noopener noreferrer"
+                    class="social-link" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/urboy.rozz/" target="_blank" rel="noopener noreferrer"
+                    class="social-link" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                </a>
+                <a href="https://github.com/Rozzz15" target="_blank" rel="noopener noreferrer" class="social-link"
+                    aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Rozel O. Ramos. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         AI CHATBOT WIDGET
+         ======================================== -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-fab" id="chatFab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <div class="ping"></div>
+        </div>
+
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar">Y</div>
+                    <div class="chat-header-text">
+                        <h4 id="botName">YNA</h4>
+                        <span><i class="online-dot"></i> Online</span>
+                    </div>
+                </div>
+                <button class="chat-close" id="chatClose">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will appear here -->
+            </div>
+
+            <div class="chat-input-area">
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                    <div class="chat-typing" id="chatTyping">Assistant is typing...</div>
+                    <form id="chatForm" style="display: flex; gap: 0.75rem;">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Ask me something..."
+                            autocomplete="off">
+                        <button type="submit" class="chat-send">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         JAVASCRIPT
+         ======================================== -->
+    <!-- Core Data (EDIT THIS FILE TO CHANGE CONTENT) -->
+    <script src="js/data.js"></script>
+
+    <!-- Application Logic -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>
