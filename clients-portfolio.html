@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients Portfolio - RozZz</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-gold: #F4E4BC;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%);
+            --dark-bg: #0A0A0A;
+            --dark-secondary: #141414;
+            --dark-tertiary: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .back-btn:hover {
+            background: var(--gold-gradient);
+            color: var(--dark-bg);
+            border-color: var(--primary-gold);
+            transform: translateX(-5px);
+        }
+
+        .logout-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            color: #ff4444;
+            text-decoration: none;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #ff4444;
+            color: white;
+            border-color: #ff4444;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: var(--dark-secondary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-category {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .project-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--gold-gradient);
+            color: var(--dark-bg);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .project-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .access-denied {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .access-denied h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: #ff4444;
+            margin-bottom: 1rem;
+        }
+
+        .access-denied p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .session-info {
+            text-align: center;
+            padding: 1rem;
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        .session-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .session-info strong {
+            color: var(--primary-gold);
+        }
+
+        /* ========================================
+           IMAGE LIGHTBOX / FULLSCREEN STYLES
+           ======================================== */
+        .image-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 95vw;
+            max-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 95vh;
+            object-fit: contain;
+            cursor: default;
+            user-select: none;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .lightbox-close:hover {
+            background: var(--primary-gold);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-close::before,
+        .lightbox-close::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 2px;
+            background: var(--text-primary);
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-close:hover::before,
+        .lightbox-close:hover::after {
+            background: var(--dark-bg);
+        }
+
+        .lightbox-close::before {
+            transform: rotate(45deg);
+        }
+
+        .lightbox-close::after {
+            transform: rotate(-45deg);
+        }
+
+        .lightbox-zoom-hint {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--primary-gold);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-lightbox.active .lightbox-zoom-hint {
+            opacity: 1;
+        }
+
+        /* Fullscreen specific styles */
+        .image-lightbox:fullscreen {
+            background: #000000;
+        }
+
+        .image-lightbox:-webkit-full-screen {
+            background: #000000;
+        }
+
+        .image-lightbox:-moz-full-screen {
+            background: #000000;
+        }
+
+        .image-lightbox:-ms-fullscreen {
+            background: #000000;
+        }
+
+        /* Make images clickable */
+        .project-image img {
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-image img:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-close {
+                width: 40px;
+                height: 40px;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .lightbox-zoom-hint {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="authenticated-content" style="display: none;">
+            <a href="index.html" class="back-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Home
+            </a>
+            <button class="logout-btn" onclick="handleLogout()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+                </svg>
+                Logout
+            </button>
+
+            <div class="session-info">
+                <p>🔒 Secure Session Active | <strong>View expires when you close this tab</strong></p>
+            </div>
+
+            <div class="header">
+                <h1>Client Portfolio Showcase</h1>
+                <p>Exclusive collection of all client projects by Rozel O. Ramos</p>
+            </div>
+
+            <div class="projects-grid" id="clientProjectsGrid"></div>
+        </div>
+
+        <div id="access-denied-content" class="access-denied">
+            <h2>Access Denied</h2>
+            <p>You need a valid password to view this page.</p>
+            <a href="index.html" class="back-btn">Return to Home</a>
+        </div>
+    </div>
+
+    <script src="js/clients-data.js"></script>
+    <script src="js/otp-system.js"></script>
+    <script>
+        // Check authentication on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if (otpSystem.isAuthenticated()) {
+                document.getElementById('authenticated-content').style.display = 'block';
+                document.getElementById('access-denied-content').style.display = 'none';
+                renderClientProjects();
+            } else {
+                document.getElementById('authenticated-content').style.display = 'none';
+                document.getElementById('access-denied-content').style.display = 'block';
+            }
+        });
+
+        function renderClientProjects() {
+            const grid = document.getElementById('clientProjectsGrid');
+            if (!grid || typeof clientsData === 'undefined') return;
+
+            grid.innerHTML = clientsData.map(project => `
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="${Array.isArray(project.image) ? project.image[0] : project.image}" 
+                             alt="${project.title}" 
+                             onerror="this.src='images/4.png'">
+                    </div>
+                    <div class="project-content">
+                        <p class="project-category">${project.category}</p>
+                        <h3 class="project-title">${project.title}</h3>
+                        <p class="project-description">
+                            ${project.description.substring(0, 150)}...
+                        </p>
+                        <a href="${project.link}" target="_blank" class="project-link">
+                            View Live Project
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                otpSystem.logout();
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+
+    <!-- ========================================
+         IMAGE LIGHTBOX MODAL
+         ======================================== -->
+    <div class="image-lightbox" id="imageLightbox">
+        <div class="lightbox-zoom-hint">Press ESC to close</div>
+        <div class="lightbox-close" id="lightboxClose"></div>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image" id="lightboxImage">
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // IMAGE LIGHTBOX / FULLSCREEN FUNCTIONALITY
+        // ========================================
+        (function() {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxClose = document.getElementById('lightboxClose');
+
+            // Function to open lightbox with an image
+            window.openImageLightbox = function(imageSrc) {
+                lightboxImage.src = imageSrc;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Enter fullscreen mode
+                requestFullscreen();
+            };
+
+            // Request fullscreen
+            function requestFullscreen() {
+                if (lightbox.requestFullscreen) {
+                    lightbox.requestFullscreen();
+                } else if (lightbox.webkitRequestFullscreen) {
+                    lightbox.webkitRequestFullscreen();
+                } else if (lightbox.mozRequestFullScreen) {
+                    lightbox.mozRequestFullScreen();
+                } else if (lightbox.msRequestFullscreen) {
+                    lightbox.msRequestFullscreen();
+                }
+            }
+
+            // Exit fullscreen
+            function exitFullscreen() {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+
+            // Close lightbox
+            function closeLightbox() {
+                // Exit fullscreen if active
+                if (document.fullscreenElement || document.webkitFullscreenElement || 
+                    document.mozFullScreenElement || document.msFullscreenElement) {
+                    exitFullscreen();
+                }
+                
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    lightboxImage.src = '';
+                }, 300);
+            }
+
+            // Event Listeners
+            lightboxClose.addEventListener('click', closeLightbox);
+
+            // Listen for fullscreen changes
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+            document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+            document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+            function handleFullscreenChange() {
+                // If user exits fullscreen manually, also close the lightbox
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && 
+                    !document.mozFullScreenElement && !document.msFullscreenElement) {
+                    if (lightbox.classList.contains('active')) {
+                        // User exited fullscreen, close lightbox
+                        closeLightbox();
+                    }
+                }
+            }
+
+            // Close on background click
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                }
+            });
+
+            // Auto-attach click handlers to all images
+            function attachImageHandlers() {
+                document.querySelectorAll('.project-image img').forEach(img => {
+                    img.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        openImageLightbox(img.src);
+                    });
+                });
+            }
+
+            // Initialize on load
+            window.addEventListener('DOMContentLoaded', () => {
+                setTimeout(attachImageHandlers, 500);
+            });
+
+            // Re-attach after rendering
+            const originalRender = window.renderClientProjects;
+            if (originalRender) {
+                window.renderClientProjects = function() {
+                    originalRender();
+                    setTimeout(attachImageHandlers, 100);
+                };
+            }
+        })();
+    </script>
+</body>
+
+</html>

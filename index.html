@@ -223,6 +223,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            z-index: 2;
         }
 
         .hero::before {
@@ -316,6 +317,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 1rem;
             opacity: 0;
             animation: fadeInUp 1s ease forwards 1.5s;
@@ -356,6 +358,7 @@
         section {
             padding: 8rem 2rem;
             position: relative;
+            z-index: 2;
         }
 
         .section-container {
@@ -615,7 +618,8 @@
             display: none;
         }
 
-        .project-image-scroller img {
+        .project-image-scroller img,
+        .project-image-scroller video {
             flex: 0 0 100%;
             width: 100%;
             height: 100%;
@@ -804,6 +808,63 @@
             border-color: rgba(212, 175, 55, 0.4);
         }
 
+        /* Category Filter Buttons */
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        .category-btn:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .category-btn.active {
+            background: var(--gold-gradient);
+            border-color: var(--primary-gold);
+            color: var(--dark-bg);
+            font-weight: 600;
+        }
+
+        .category-btn.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .category-filters {
+                gap: 0.5rem;
+                padding: 1rem 0;
+            }
+
+            .category-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.75rem;
+            }
+        }
+
         .results-count {
             text-align: center;
             color: var(--text-secondary);
@@ -899,6 +960,8 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card::before {
@@ -951,6 +1014,9 @@
             padding: 2rem;
             position: relative;
             z-index: 2;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .project-category {
@@ -979,6 +1045,7 @@
             font-weight: 300;
             margin-bottom: 1.5rem;
             text-align: justify;
+            flex: 1;
         }
 
         .project-link {
@@ -1284,6 +1351,132 @@
         }
 
         /* ========================================
+           SKILLS & EDUCATION SECTION STYLES
+           ======================================== */
+        #skills-education {
+            min-height: 100vh;
+            padding: 8rem 2rem;
+            background: var(--dark-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .skills-education-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills-section,
+        .education-section {
+            margin-bottom: 4rem;
+        }
+
+        .subsection-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .subsection-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold-gradient);
+            border-radius: 2px;
+        }
+
+        .subsection-title svg {
+            color: var(--primary-gold);
+        }
+
+        /* Education - Clean Modern Design */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .education-item {
+            background: var(--dark-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .education-item::before {
+            content: '🎓';
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2.5rem;
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .education-item:hover::before {
+            opacity: 0.2;
+        }
+
+        .education-degree {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .education-period {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary-gold);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .education-school {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .education-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
            CONTACT SECTION STYLES
            ======================================== */
         #contact {
@@ -1509,6 +1702,8 @@
             background: var(--dark-bg);
             padding: 4rem 2rem 2rem;
             border-top: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+            z-index: 2;
         }
 
         .footer-content {
@@ -1813,24 +2008,6 @@
             transition: width 0.1s ease;
         }
 
-        /* Cursor Tracker */
-        .cursor-tracker {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary-gold);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.1s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .cursor-tracker.active {
-            opacity: 0.6;
-        }
-
         /* Animated Particles Background */
         .particles-container {
             position: fixed;
@@ -1839,38 +2016,184 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 10002;
             overflow: hidden;
         }
 
+        /* Floating gold particles */
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--primary-gold);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.8) 0%, rgba(212, 175, 55, 0.3) 50%, transparent 70%);
             border-radius: 50%;
-            opacity: 0.3;
-            animation: particleFloat 15s infinite ease-in-out;
+            pointer-events: none;
+            box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
         }
 
-        @keyframes particleFloat {
+        .particle.small {
+            width: 2px;
+            height: 2px;
+            opacity: 0;
+            animation: particleFloatSmall 20s infinite ease-in-out;
+        }
+
+        .particle.medium {
+            width: 3px;
+            height: 3px;
+            opacity: 0;
+            animation: particleFloatMedium 25s infinite ease-in-out;
+        }
+
+        .particle.large {
+            width: 5px;
+            height: 5px;
+            opacity: 0;
+            animation: particleFloatLarge 30s infinite ease-in-out;
+        }
+
+        @keyframes particleFloatSmall {
             0% {
-                transform: translateY(100vh) translateX(0) scale(0);
+                transform: translate(0, 100vh) scale(0);
                 opacity: 0;
             }
-
             10% {
-                opacity: 0.3;
+                opacity: 0.4;
             }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translate(50px, -100px) scale(1);
+                opacity: 0;
+            }
+        }
 
+        @keyframes particleFloatMedium {
+            0% {
+                transform: translate(0, 100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
             90% {
                 opacity: 0.3;
             }
-
             100% {
-                transform: translateY(-100px) translateX(100px) scale(1);
+                transform: translate(-30px, -150px) scale(1.2);
                 opacity: 0;
             }
+        }
+
+        @keyframes particleFloatLarge {
+            0% {
+                transform: translate(0, 100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(100px, -200px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Geometric shapes floating in background */
+        .geo-shape {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.03;
+            border: 1px solid var(--primary-gold);
+        }
+
+        .geo-shape.circle {
+            border-radius: 50%;
+            animation: floatShape 30s infinite ease-in-out;
+        }
+
+        .geo-shape.square {
+            animation: floatShapeRotate 35s infinite ease-in-out;
+        }
+
+        .geo-shape.diamond {
+            transform: rotate(45deg);
+            animation: floatShapeSpin 40s infinite ease-in-out;
+        }
+
+        @keyframes floatShape {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-30px) translateX(20px);
+            }
+            50% {
+                transform: translateY(-50px) translateX(-10px);
+            }
+            75% {
+                transform: translateY(-20px) translateX(-30px);
+            }
+        }
+
+        @keyframes floatShapeRotate {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-40px) translateX(30px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(-60px) translateX(-20px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-30px) translateX(-40px) rotate(270deg);
+            }
+        }
+
+        @keyframes floatShapeSpin {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(45deg) scale(1);
+            }
+            33% {
+                transform: translateY(-50px) translateX(40px) rotate(135deg) scale(1.1);
+            }
+            66% {
+                transform: translateY(-70px) translateX(-30px) rotate(225deg) scale(0.9);
+            }
+        }
+
+        /* Animated gradient overlay */
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(212, 175, 55, 0.02) 0%,
+                rgba(10, 10, 10, 0) 25%,
+                rgba(212, 175, 55, 0.01) 50%,
+                rgba(10, 10, 10, 0) 75%,
+                rgba(212, 175, 55, 0.02) 100%
+            );
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* ========================================
@@ -2986,33 +3309,51 @@
             margin-bottom: 0;
         }
 
-        /* Skills */
+        /* Skills - Clean Modern Design */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .skill-category {
             background: var(--dark-tertiary);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2rem;
+            border-radius: 12px;
             transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .skill-category:hover {
-            border-color: rgba(212, 175, 55, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transform: translateY(-3px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .skill-category:hover::before {
+            opacity: 1;
         }
 
         .skill-category-title {
             font-family: var(--font-display);
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-weight: 500;
+            font-size: 1.4rem;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
         .skill-tags {
@@ -3022,15 +3363,14 @@
         }
 
         .skill-tag {
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            color: var(--primary-gold);
-            font-size: 0.85rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-primary);
+            font-size: 0.9rem;
             font-weight: 500;
-            border-radius: 4px;
+            border-radius: 6px;
             transition: all 0.3s ease;
-            letter-spacing: 0.05em;
         }
 
         .skill-tag:hover {
@@ -3038,7 +3378,6 @@
             color: var(--dark-bg);
             border-color: var(--primary-gold);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
 
         /* Resume Actions */
@@ -3663,6 +4002,215 @@
                 height: 450px;
             }
         }
+
+        /* ========================================
+           IMAGE LIGHTBOX / FULLSCREEN STYLES
+           ======================================== */
+        .image-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 95vw;
+            max-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 95vh;
+            object-fit: contain;
+            cursor: default;
+            user-select: none;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .lightbox-close:hover {
+            background: var(--primary-gold);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-close::before,
+        .lightbox-close::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 2px;
+            background: var(--text-primary);
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-close:hover::before,
+        .lightbox-close:hover::after {
+            background: var(--dark-bg);
+        }
+
+        .lightbox-close::before {
+            transform: rotate(45deg);
+        }
+
+        .lightbox-close::after {
+            transform: rotate(-45deg);
+        }
+
+        .lightbox-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+        }
+
+        .lightbox-nav.prev {
+            left: 2rem;
+        }
+
+        .lightbox-nav.next {
+            right: 2rem;
+        }
+
+        .lightbox-counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--primary-gold);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            z-index: 10001;
+        }
+
+        .lightbox-zoom-hint {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--primary-gold);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-lightbox.active .lightbox-zoom-hint {
+            opacity: 1;
+        }
+
+        /* Fullscreen specific styles */
+        .image-lightbox:fullscreen {
+            background: #000000;
+        }
+
+        .image-lightbox:-webkit-full-screen {
+            background: #000000;
+        }
+
+        .image-lightbox:-moz-full-screen {
+            background: #000000;
+        }
+
+        .image-lightbox:-ms-fullscreen {
+            background: #000000;
+        }
+
+        /* Make images clickable */
+        .project-image img,
+        .about-photo,
+        .resume-photo {
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-image img:hover,
+        .about-photo:hover,
+        .resume-photo:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-close,
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .lightbox-nav.prev {
+                left: 1rem;
+            }
+
+            .lightbox-nav.next {
+                right: 1rem;
+            }
+
+            .lightbox-close {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .lightbox-zoom-hint {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
     </style>
 </head>
 
@@ -3671,7 +4219,6 @@
          ANIMATED BACKGROUND ELEMENTS
          ======================================== -->
     <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="cursor-tracker" id="cursorTracker"></div>
     <div class="particles-container" id="particlesContainer"></div>
 
     <!-- ========================================
@@ -3694,7 +4241,9 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills-education">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#" id="clientPortfolioBtn" style="color: var(--primary-gold); font-weight: 500;">🔒 Clients Web</a></li>
             </ul>
             <div class="mobile-menu-btn">
                 <span></span>
@@ -3763,31 +4312,19 @@
 
                     <div class="about-stats">
                         <div class="stat-item reveal reveal-delay-1 scale-in">
-                            <h4 class="counter" id="statYears" data-target="0">4</h4>
+                            <h4 class="counter" id="statYears" data-target="2">2</h4>
                             <p>Years Experience</p>
                         </div>
                         <div class="stat-item reveal reveal-delay-2 scale-in">
-                            <h4 class="counter" id="statProjects" data-target="0">5</h4>
+                            <h4 class="counter" id="statProjects" data-target="8">8</h4>
                             <p>Projects Completed</p>
                         </div>
                         <div class="stat-item reveal reveal-delay-3 scale-in">
-                            <h4 class="counter" id="statClients" data-target="0">24</h4>
+                            <h4 class="counter" id="statClients" data-target="24">24</h4>
                             <p>Happy Clients</p>
                         </div>
                     </div>
 
-                    <div style="margin-top: 3rem;">
-                        <a href="#" class="view-all-btn" id="resumeBtn">
-                            View Resume
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                <polyline points="14 2 14 8 20 8" />
-                                <line x1="16" y1="13" x2="8" y2="13" />
-                                <line x1="16" y1="17" x2="8" y2="17" />
-                                <polyline points="10 9 9 9 8 9" />
-                            </svg>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -3909,6 +4446,15 @@
                 </div>
             </div>
 
+            <!-- Category Filters -->
+            <div class="category-filters" id="categoryFilters">
+                <button class="category-btn active" data-category="all">All Projects</button>
+                <button class="category-btn" data-category="Web Portfolio">Web Portfolio</button>
+                <button class="category-btn" data-category="Website">Website</button>
+                <button class="category-btn" data-category="Application">Application</button>
+                <button class="category-btn" data-category="Invitation Website">Invitation Website</button>
+            </div>
+
             <!-- Projects Grid -->
             <div class="projects-grid" id="allProjectsGrid">
                 <!-- All projects will be dynamically inserted here -->
@@ -3916,6 +4462,48 @@
 
             <!-- Results count -->
             <div class="results-count reveal" id="resultsCount"></div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SKILLS & EDUCATION SECTION
+         ======================================== -->
+    <section id="skills-education">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <p class="section-label">My Expertise</p>
+                <h2 class="section-title">Skills & Education</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <!-- Skills -->
+            <div class="skills-education-content">
+                <div class="skills-section reveal">
+                    <h3 class="subsection-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px; display: inline-block; margin-right: 0.5rem; vertical-align: middle;">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                        Technical Skills
+                    </h3>
+                    <div class="skills-grid" id="mainSkillsGrid">
+                        <!-- Skills will be loaded from data.js -->
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="education-section reveal">
+                    <h3 class="subsection-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px; display: inline-block; margin-right: 0.5rem; vertical-align: middle;">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                        </svg>
+                        Education
+                    </h3>
+                    <div class="education-grid" id="mainEducationGrid">
+                        <!-- Education will be loaded from data.js -->
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -4245,10 +4833,587 @@
          JAVASCRIPT
          ======================================== -->
     <!-- Core Data (EDIT THIS FILE TO CHANGE CONTENT) -->
+    <!-- OTP Password Modal -->
+    <div id="otpModal" class="project-modal-overlay">
+        <div class="project-modal-container">
+            <div class="project-modal-content" style="max-width: 500px;">
+                <button class="project-modal-close" id="otpModalClose" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <div class="project-modal-body" style="padding: 3rem;">
+                    <div class="project-modal-header" style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                        <h2 class="project-modal-title" style="font-size: 2rem;">Client Portfolio Access</h2>
+                        <div class="project-modal-divider" style="margin: 1rem auto;"></div>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                            Enter the one-time password to view the exclusive client portfolio.
+                        </p>
+                    </div>
+
+                    <form id="otpForm" style="margin-bottom: 2rem;">
+                        <div class="form-group">
+                            <label for="otpInput">Password</label>
+                            <input type="text" 
+                                   id="otpInput" 
+                                   placeholder="Enter 6-digit code" 
+                                   maxlength="6"
+                                   pattern="[0-9]{6}"
+                                   autocomplete="off"
+                                   style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5em; font-family: monospace;"
+                                   required>
+                        </div>
+                        <div id="otpMessage" style="margin-bottom: 1rem; text-align: center; min-height: 24px;"></div>
+                        <button type="submit" class="submit-btn" style="width: 100%; justify-content: center;">
+                            Unlock Portfolio
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </button>
+                    </form>
+
+                    <div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">
+                            Need access? Contact the administrator
+                        </p>
+                        <a href="#contact" onclick="closeOTPModal()" style="color: var(--primary-gold); font-size: 0.9rem; text-decoration: underline;">
+                            Request Password →
+                        </a>
+                    </div>
+
+                    <!-- Admin OTP Generator (Hidden by default) -->
+                    <div id="adminPanel" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(212, 175, 55, 0.2); display: none;">
+                        <div style="text-align: center; margin-bottom: 1rem;">
+                            <button id="showAdminBtn" class="submit-btn" style="background: rgba(255,255,255,0.05); color: var(--text-secondary); font-size: 0.75rem; padding: 0.5rem 1rem;">
+                                Admin: Generate OTP
+                            </button>
+                        </div>
+                        <div id="adminContent" style="display: none;">
+                            <button id="generateOTPBtn" class="submit-btn" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);">
+                                Generate New Password
+                            </button>
+                            <div id="otpDisplay" style="margin-top: 1.5rem; padding: 1.5rem; background: var(--dark-bg); border: 2px solid var(--primary-gold); border-radius: 4px; display: none;">
+                                <p style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">Generated Password:</p>
+                                <p id="otpCode" style="text-align: center; font-size: 2rem; font-family: monospace; color: var(--primary-gold); letter-spacing: 0.5em; margin-bottom: 0.5rem; user-select: all;"></p>
+                                <p id="otpExpiry" style="text-align: center; color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 1rem;"></p>
+                                <button id="copyOTPBtn" class="submit-btn" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;">
+                                    Copy Password
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/data.js"></script>
+    <script src="js/otp-system.js"></script>
 
     <!-- Application Logic -->
     <script src="js/app.js"></script>
+
+    <!-- ========================================
+         BACKGROUND ANIMATIONS
+         ======================================== -->
+    <script>
+        // ========================================
+        // ANIMATED PARTICLES SYSTEM
+        // ========================================
+        (function() {
+            const particlesContainer = document.getElementById('particlesContainer');
+            
+            if (!particlesContainer) return;
+
+            // Create floating particles - infinite system
+            function createSingleParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size class
+                const sizeClasses = ['small', 'medium', 'large'];
+                const randomSize = sizeClasses[Math.floor(Math.random() * sizeClasses.length)];
+                particle.classList.add(randomSize);
+                
+                // Random position across the entire width AND height
+                particle.style.left = Math.random() * 100 + '%';
+                // Start from random vertical positions across entire screen
+                particle.style.bottom = (Math.random() * 100) + 'vh';
+                
+                particlesContainer.appendChild(particle);
+                
+                // Remove particle after animation completes
+                const animationDuration = randomSize === 'small' ? 20000 : randomSize === 'medium' ? 25000 : 30000;
+                setTimeout(() => {
+                    particle.remove();
+                }, animationDuration);
+            }
+
+            // Create initial batch of particles
+            function createParticles() {
+                const particleCount = 60; // Moderate coverage for subtle effect
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    // Random size class
+                    const sizeClasses = ['small', 'medium', 'large'];
+                    const randomSize = sizeClasses[Math.floor(Math.random() * sizeClasses.length)];
+                    particle.classList.add(randomSize);
+                    
+                    // Random position
+                    particle.style.left = Math.random() * 100 + '%';
+                    // Distribute particles at different heights for immediate coverage
+                    particle.style.bottom = (Math.random() * 120 - 20) + 'vh';
+                    
+                    // Minimal delay for faster initial appearance
+                    particle.style.animationDelay = Math.random() * 5 + 's';
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            // Create geometric shapes
+            function createGeometricShapes() {
+                const shapes = [
+                    { type: 'circle', size: 150, count: 3 },
+                    { type: 'circle', size: 100, count: 4 },
+                    { type: 'square', size: 120, count: 3 },
+                    { type: 'diamond', size: 80, count: 4 }
+                ];
+
+                shapes.forEach(shapeConfig => {
+                    for (let i = 0; i < shapeConfig.count; i++) {
+                        const shape = document.createElement('div');
+                        shape.className = `geo-shape ${shapeConfig.type}`;
+                        shape.style.width = shapeConfig.size + 'px';
+                        shape.style.height = shapeConfig.size + 'px';
+                        
+                        // Random position
+                        shape.style.left = Math.random() * 100 + '%';
+                        shape.style.top = Math.random() * 100 + '%';
+                        
+                        // Random animation delay
+                        shape.style.animationDelay = Math.random() * 10 + 's';
+                        
+                        particlesContainer.appendChild(shape);
+                    }
+                });
+            }
+
+            // Initialize animations
+            createParticles();
+            createGeometricShapes();
+
+            // Continuous particle generation for infinite effect
+            // Generate new particles at random intervals - STARTS IMMEDIATELY
+            setInterval(() => {
+                // Create 3-9 particles at once for balanced, elegant flow
+                const batchSize = Math.floor(Math.random() * 7) + 3;
+                for (let i = 0; i < batchSize; i++) {
+                    createSingleParticle();
+                }
+            }, 300); // Every 0.3 seconds - balanced flow
+
+        })();
+
+    </script>
+
+    <!-- OTP Modal Logic -->
+    <script>
+        const otpModal = document.getElementById('otpModal');
+        const otpModalClose = document.getElementById('otpModalClose');
+        const clientPortfolioBtn = document.getElementById('clientPortfolioBtn');
+        const otpForm = document.getElementById('otpForm');
+        const otpInput = document.getElementById('otpInput');
+        const otpMessage = document.getElementById('otpMessage');
+        const adminPanel = document.getElementById('adminPanel');
+        const showAdminBtn = document.getElementById('showAdminBtn');
+        const adminContent = document.getElementById('adminContent');
+        const generateOTPBtn = document.getElementById('generateOTPBtn');
+        const otpDisplay = document.getElementById('otpDisplay');
+        const otpCode = document.getElementById('otpCode');
+        const otpExpiry = document.getElementById('otpExpiry');
+        const copyOTPBtn = document.getElementById('copyOTPBtn');
+
+        // Open OTP Modal
+        function openOTPModal() {
+            otpModal.classList.add('active');
+            document.body.classList.add('project-modal-open');
+            otpInput.value = '';
+            otpMessage.textContent = '';
+            otpInput.focus();
+            
+            // Show admin panel (triple-click on title to reveal)
+            let clickCount = 0;
+            const modalTitle = otpModal.querySelector('.project-modal-title');
+            modalTitle.addEventListener('click', () => {
+                clickCount++;
+                if (clickCount === 3) {
+                    adminPanel.style.display = 'block';
+                    clickCount = 0;
+                }
+                setTimeout(() => { clickCount = 0; }, 1000);
+            });
+        }
+
+        // Close OTP Modal
+        function closeOTPModal() {
+            otpModal.classList.remove('active');
+            document.body.classList.remove('project-modal-open');
+        }
+
+        // Client Portfolio Button Click
+        if (clientPortfolioBtn) {
+            clientPortfolioBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Check if already authenticated
+                if (otpSystem.isAuthenticated()) {
+                    window.location.href = 'clients-portfolio.html';
+                } else {
+                    openOTPModal();
+                }
+            });
+        }
+
+        // Close Modal Button
+        if (otpModalClose) {
+            otpModalClose.addEventListener('click', closeOTPModal);
+        }
+
+        // Close on overlay click
+        if (otpModal) {
+            otpModal.addEventListener('click', (e) => {
+                if (e.target === otpModal) {
+                    closeOTPModal();
+                }
+            });
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && otpModal.classList.contains('active')) {
+                closeOTPModal();
+            }
+        });
+
+        // OTP Form Submit
+        if (otpForm) {
+            otpForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const code = otpInput.value.trim();
+                const result = otpSystem.validateOTP(code);
+                
+                if (result.valid) {
+                    otpMessage.style.color = '#4CAF50';
+                    otpMessage.textContent = result.message;
+                    
+                    setTimeout(() => {
+                        window.location.href = 'clients-portfolio.html';
+                    }, 500);
+                } else {
+                    otpMessage.style.color = '#ff4444';
+                    otpMessage.textContent = result.message;
+                    otpInput.value = '';
+                    otpInput.focus();
+                }
+            });
+        }
+
+        // Show Admin Panel
+        if (showAdminBtn) {
+            showAdminBtn.addEventListener('click', () => {
+                adminContent.style.display = adminContent.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        // Generate OTP
+        if (generateOTPBtn) {
+            generateOTPBtn.addEventListener('click', () => {
+                const otpData = otpSystem.createOTP();
+                otpCode.textContent = otpData.code;
+                otpExpiry.textContent = `Expires at: ${otpData.expiresAt}`;
+                otpDisplay.style.display = 'block';
+            });
+        }
+
+        // Copy OTP
+        if (copyOTPBtn) {
+            copyOTPBtn.addEventListener('click', async () => {
+                const code = otpCode.textContent;
+                try {
+                    await navigator.clipboard.writeText(code);
+                    copyOTPBtn.textContent = '✓ Copied!';
+                    setTimeout(() => {
+                        copyOTPBtn.innerHTML = 'Copy Password';
+                    }, 2000);
+                } catch (err) {
+                    alert('Failed to copy. Please copy manually: ' + code);
+                }
+            });
+        }
+    </script>
+
+    <!-- ========================================
+         IMAGE LIGHTBOX MODAL
+         ======================================== -->
+    <div class="image-lightbox" id="imageLightbox">
+        <div class="lightbox-zoom-hint">Press ESC to close</div>
+        <div class="lightbox-close" id="lightboxClose"></div>
+        <div class="lightbox-nav prev" id="lightboxPrev">❮</div>
+        <div class="lightbox-nav next" id="lightboxNext">❯</div>
+        <div class="lightbox-counter" id="lightboxCounter" style="display: none;">1 / 1</div>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image" id="lightboxImage">
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // IMAGE LIGHTBOX / FULLSCREEN FUNCTIONALITY
+        // ========================================
+        (function() {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            const lightboxCounter = document.getElementById('lightboxCounter');
+            
+            let currentImages = [];
+            let currentIndex = 0;
+
+            // Function to open lightbox with an image or array of images
+            window.openImageLightbox = function(imageSrc, imageArray = null, startIndex = 0) {
+                if (imageArray && Array.isArray(imageArray)) {
+                    currentImages = imageArray;
+                    currentIndex = startIndex;
+                } else {
+                    currentImages = [imageSrc];
+                    currentIndex = 0;
+                }
+
+                showImage(currentIndex);
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Show/hide navigation based on number of images
+                if (currentImages.length > 1) {
+                    lightboxPrev.style.display = 'flex';
+                    lightboxNext.style.display = 'flex';
+                    lightboxCounter.style.display = 'block';
+                    updateCounter();
+                } else {
+                    lightboxPrev.style.display = 'none';
+                    lightboxNext.style.display = 'none';
+                    lightboxCounter.style.display = 'none';
+                }
+
+                // Enter fullscreen mode
+                requestFullscreen();
+            };
+
+            // Function to show specific image
+            function showImage(index) {
+                lightboxImage.src = currentImages[index];
+                updateCounter();
+            }
+
+            // Function to update counter
+            function updateCounter() {
+                if (currentImages.length > 1) {
+                    lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+                }
+            }
+
+            // Request fullscreen
+            function requestFullscreen() {
+                if (lightbox.requestFullscreen) {
+                    lightbox.requestFullscreen();
+                } else if (lightbox.webkitRequestFullscreen) {
+                    lightbox.webkitRequestFullscreen();
+                } else if (lightbox.mozRequestFullScreen) {
+                    lightbox.mozRequestFullScreen();
+                } else if (lightbox.msRequestFullscreen) {
+                    lightbox.msRequestFullscreen();
+                }
+            }
+
+            // Exit fullscreen
+            function exitFullscreen() {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+
+            // Close lightbox
+            function closeLightbox() {
+                // Exit fullscreen if active
+                if (document.fullscreenElement || document.webkitFullscreenElement || 
+                    document.mozFullScreenElement || document.msFullscreenElement) {
+                    exitFullscreen();
+                }
+                
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    lightboxImage.src = '';
+                    currentImages = [];
+                    currentIndex = 0;
+                }, 300);
+            }
+
+            // Navigate to previous image
+            function prevImage() {
+                if (currentImages.length > 1) {
+                    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+                    showImage(currentIndex);
+                }
+            }
+
+            // Navigate to next image
+            function nextImage() {
+                if (currentImages.length > 1) {
+                    currentIndex = (currentIndex + 1) % currentImages.length;
+                    showImage(currentIndex);
+                }
+            }
+
+            // Event Listeners
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', prevImage);
+            lightboxNext.addEventListener('click', nextImage);
+
+            // Listen for fullscreen changes
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+            document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+            document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+            function handleFullscreenChange() {
+                // If user exits fullscreen manually, also close the lightbox
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && 
+                    !document.mozFullScreenElement && !document.msFullscreenElement) {
+                    if (lightbox.classList.contains('active')) {
+                        // User exited fullscreen, close lightbox
+                        closeLightbox();
+                    }
+                }
+            }
+
+            // Close on background click
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+
+                switch(e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        prevImage();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        break;
+                }
+            });
+
+            // Auto-attach click handlers to all images
+            function attachImageHandlers() {
+                // Handle project images in cards
+                document.querySelectorAll('.project-card').forEach(card => {
+                    const images = card.querySelectorAll('.project-image img');
+                    images.forEach((img, index) => {
+                        img.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const allImages = Array.from(images).map(i => i.src);
+                            openImageLightbox(img.src, allImages, index);
+                        });
+                    });
+                });
+
+                // Handle about photo
+                const aboutPhoto = document.querySelector('.about-photo');
+                if (aboutPhoto) {
+                    aboutPhoto.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        openImageLightbox(aboutPhoto.src);
+                    });
+                }
+
+                // Handle resume photo
+                const resumePhoto = document.querySelector('.resume-photo');
+                if (resumePhoto) {
+                    resumePhoto.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        openImageLightbox(resumePhoto.src);
+                    });
+                }
+
+                // Handle modal images
+                const modalImages = document.querySelectorAll('#projectModal .project-image-scroller img');
+                modalImages.forEach((img, index) => {
+                    img.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const allImages = Array.from(modalImages).map(i => i.src);
+                        openImageLightbox(img.src, allImages, index);
+                    });
+                });
+            }
+
+            // Initialize on load and when content changes
+            window.addEventListener('load', attachImageHandlers);
+            
+            // Re-attach handlers when projects are rendered
+            const originalRenderFeatured = window.renderFeaturedProjects;
+            if (originalRenderFeatured) {
+                window.renderFeaturedProjects = function() {
+                    originalRenderFeatured();
+                    setTimeout(attachImageHandlers, 100);
+                };
+            }
+
+            const originalRenderAll = window.renderAllProjects;
+            if (originalRenderAll) {
+                window.renderAllProjects = function(projects) {
+                    originalRenderAll(projects);
+                    setTimeout(attachImageHandlers, 100);
+                };
+            }
+
+            const originalOpenProjectModal = window.openProjectModalById;
+            if (originalOpenProjectModal) {
+                window.openProjectModalById = function(id) {
+                    originalOpenProjectModal(id);
+                    setTimeout(attachImageHandlers, 100);
+                };
+            }
+
+            // Export for external use
+            window.imageLightbox = {
+                open: openImageLightbox,
+                close: closeLightbox
+            };
+        })();
+    </script>
 </body>
 
 </html>

@@ -149,6 +149,33 @@ function renderSiteContent() {
     // --- AI Bot ---
     const botName = $('#botName');
     if (botName) botName.textContent = siteData.aiBot.name;
+
+    // --- Main Skills & Education Section ---
+    const mainSkillsGrid = $('#mainSkillsGrid');
+    if (mainSkillsGrid) {
+        mainSkillsGrid.innerHTML = `
+            ${siteData.resume.skills.map(skillGroup => `
+                <div class="skill-category">
+                    <h4 class="skill-category-title">${skillGroup.category}</h4>
+                    <div class="skill-tags">
+                        ${skillGroup.items.map(tag => `<span class="skill-tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('')}
+        `;
+    }
+
+    const mainEducationGrid = $('#mainEducationGrid');
+    if (mainEducationGrid) {
+        mainEducationGrid.innerHTML = siteData.resume.education.map(edu => `
+            <div class="education-item">
+                <h4 class="education-degree">${edu.degree}</h4>
+                <span class="education-period">${edu.period}</span>
+                <p class="education-school">${edu.school}</p>
+                <p class="education-description">${edu.description}</p>
+            </div>
+        `).join('');
+    }
 }
 
 // Function to scroll gallery
@@ -168,18 +195,29 @@ function scrollGallery(btn, direction) {
 function createProjectCard(project, delay = 0) {
     let imageContent;
 
-    // Check if image is an array (multiple images)
+    // Check if image is an array (multiple images) or if there's a video
     if (Array.isArray(project.image)) {
-        const imagesHtml = project.image.map((img, index) =>
-            `<img src="${img}" alt="${project.title} - Image ${index + 1}" loading="lazy">`
-        ).join('');
+        let mediaItems = [];
+        
+        // Add video FIRST if it exists
+        if (project.video && project.video !== null) {
+            mediaItems.push(`<video src="${project.video}" controls loop muted autoplay style="width:100%; height:100%; object-fit:cover;">Your browser does not support the video tag.</video>`);
+        }
+        
+        // Add all images after the video
+        project.image.forEach((img, index) => {
+            mediaItems.push(`<img src="${img}" alt="${project.title} - Image ${index + 1}" loading="lazy">`);
+        });
+        
+        const mediaHtml = mediaItems.join('');
+        const totalCount = mediaItems.length;
 
         imageContent = `
             <div style="position:relative; width:100%; height:100%;">
-                <div class="project-image-scroller">${imagesHtml}</div>
+                <div class="project-image-scroller">${mediaHtml}</div>
                 <button class="gallery-nav-btn prev" onclick="scrollGallery(this, -1)">❮</button>
                 <button class="gallery-nav-btn next" onclick="scrollGallery(this, 1)">❯</button>
-                <div class="gallery-badge">1/${project.image.length}</div>
+                <div class="gallery-badge">1/${totalCount}</div>
             </div>
         `;
     }
@@ -239,12 +277,22 @@ function initGalleryBadges() {
         // Ensure event listener is not added multiple times
         if (!scroller.dataset.badgeInitialized) {
             scroller.addEventListener('scroll', () => {
-                const index = Math.round(scroller.scrollLeft / scroller.offsetWidth) + 1;
+                // More accurate index calculation
+                const scrollPosition = scroller.scrollLeft;
+                const itemWidth = scroller.offsetWidth;
+                const index = Math.max(1, Math.round(scrollPosition / itemWidth) + 1);
                 const badge = scroller.parentElement.querySelector('.gallery-badge');
                 const total = scroller.children.length;
                 if (badge) badge.textContent = `${index}/${total}`;
             });
             scroller.dataset.badgeInitialized = 'true'; // Mark as initialized
+        }
+        
+        // Force initial badge update to show 1/X
+        const badge = scroller.parentElement.querySelector('.gallery-badge');
+        const total = scroller.children.length;
+        if (badge && scroller.scrollLeft === 0) {
+            badge.textContent = `1/${total}`;
         }
     });
 }
@@ -290,25 +338,50 @@ function openProjectModalById(id) {
     document.getElementById('projectModalTitle').textContent = project.title;
     document.getElementById('projectModalDescription').textContent = project.description;
 
-    // Handle image (Array, SVG, or URL)
+    // Handle image (Array, SVG, or URL) and video
     const imgContainer = document.getElementById('projectModalImage');
 
     if (Array.isArray(project.image)) {
-        // Use the same scroller logic for the modal
-        const imagesHtml = project.image.map((img, idx) =>
-            `<img src="${img}" alt="${project.title} - Image ${idx + 1}" style="width:100%; height:100%; object-fit:cover; flex-shrink:0;">`
-        ).join('');
+        let mediaItems = [];
+        
+        // Add video FIRST if it exists
+        if (project.video && project.video !== null) {
+            mediaItems.push(`<video src="${project.video}" controls loop muted autoplay style="width:100%; height:100%; object-fit:cover; flex-shrink:0;">Your browser does not support the video tag.</video>`);
+        }
+        
+        // Add all images after the video
+        project.image.forEach((img, idx) => {
+            mediaItems.push(`<img src="${img}" alt="${project.title} - Image ${idx + 1}" style="width:100%; height:100%; object-fit:cover; flex-shrink:0;">`);
+        });
+        
+        const mediaHtml = mediaItems.join('');
+        const totalCount = mediaItems.length;
 
         imgContainer.innerHTML = `
             <div style="position:relative; width:100%; height:100%;">
-                <div class="project-image-scroller">${imagesHtml}</div>
+                <div class="project-image-scroller">${mediaHtml}</div>
                 <button class="gallery-nav-btn prev" onclick="scrollGallery(this, -1)">❮</button>
                 <button class="gallery-nav-btn next" onclick="scrollGallery(this, 1)">❯</button>
-                <div class="gallery-badge">1/${project.image.length}</div>
+                <div class="gallery-badge">1/${totalCount}</div>
             </div>
         `;
         // Init badge logic for modal
         initGalleryBadges();
+        
+        // Reset scroll position to show first item (video) - multiple attempts to ensure it works
+        const scroller = imgContainer.querySelector('.project-image-scroller');
+        if (scroller) {
+            scroller.scrollLeft = 0;
+            setTimeout(() => {
+                scroller.scrollLeft = 0;
+                // Also update the badge manually
+                const badge = imgContainer.querySelector('.gallery-badge');
+                if (badge) badge.textContent = `1/${totalCount}`;
+            }, 100);
+            setTimeout(() => {
+                scroller.scrollLeft = 0;
+            }, 200);
+        }
     }
     else if (typeof project.image === 'string' && project.image.startsWith('<svg')) {
         imgContainer.innerHTML = project.image;
@@ -338,16 +411,24 @@ window.addEventListener('load', () => {
 // Search and Sort Logic
 const projectSearch = document.getElementById('projectSearch');
 const projectSort = document.getElementById('projectSort');
+let activeCategory = 'all';
 
 function filterProjects() {
     const query = projectSearch.value.toLowerCase();
     const sortValue = projectSort.value;
 
-    let filtered = projectsData.filter(p =>
-        p.title.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query) ||
-        p.description.toLowerCase().includes(query)
-    );
+    let filtered = projectsData.filter(p => {
+        // Category filter
+        const categoryMatch = activeCategory === 'all' || p.category === activeCategory;
+        
+        // Search filter
+        const searchMatch = query === '' || 
+            p.title.toLowerCase().includes(query) ||
+            p.category.toLowerCase().includes(query) ||
+            p.description.toLowerCase().includes(query);
+        
+        return categoryMatch && searchMatch;
+    });
 
     // Sort
     if (sortValue === 'name-asc') {
@@ -365,6 +446,24 @@ function filterProjects() {
 
 if (projectSearch) projectSearch.addEventListener('input', filterProjects);
 if (projectSort) projectSort.addEventListener('change', filterProjects);
+
+// Category Filter Logic
+const categoryButtons = document.querySelectorAll('.category-btn');
+categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        categoryButtons.forEach(b => b.classList.remove('active'));
+        
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        // Update active category
+        activeCategory = btn.dataset.category;
+        
+        // Filter projects
+        filterProjects();
+    });
+});
 
 // ========================================
 // SPLASH SCREEN
