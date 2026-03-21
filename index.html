@@ -116,6 +116,160 @@
             font-weight: 300;
         }
 
+        /* Splash Screen Particles */
+        .splash-particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .splash-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.8) 0%, rgba(212, 175, 55, 0.4) 50%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .splash-particle.small {
+            width: 3px;
+            height: 3px;
+            animation: splashParticleFloatSmall 15s infinite ease-in-out;
+        }
+
+        .splash-particle.medium {
+            width: 5px;
+            height: 5px;
+            animation: splashParticleFloatMedium 20s infinite ease-in-out;
+        }
+
+        .splash-particle.large {
+            width: 8px;
+            height: 8px;
+            animation: splashParticleFloatLarge 25s infinite ease-in-out;
+        }
+
+        /* Particles floating UP from bottom */
+        @keyframes splashParticleFloatSmall {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes splashParticleFloatMedium {
+            0% {
+                transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(-30px) scale(0.8) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes splashParticleFloatLarge {
+            0% {
+                transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(40px) scale(1.2) rotate(-180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Particles floating DOWN from top */
+        @keyframes splashParticleFloatDownSmall {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) translateX(-20px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes splashParticleFloatDownMedium {
+            0% {
+                transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) translateX(30px) scale(0.8) rotate(-180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes splashParticleFloatDownLarge {
+            0% {
+                transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) translateX(-40px) scale(1.2) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        .splash-particle.from-top.small {
+            animation: splashParticleFloatDownSmall 15s infinite ease-in-out;
+        }
+
+        .splash-particle.from-top.medium {
+            animation: splashParticleFloatDownMedium 20s infinite ease-in-out;
+        }
+
+        .splash-particle.from-top.large {
+            animation: splashParticleFloatDownLarge 25s infinite ease-in-out;
+        }
+
         /* ========================================
            NAVIGATION STYLES
            ======================================== */
@@ -4225,6 +4379,7 @@
          SPLASH SCREEN
          ======================================== -->
     <div id="splash-screen">
+        <div class="splash-particles-container" id="splashParticlesContainer"></div>
         <div class="splash-content">
             <h1 class="splash-text">RozZz</h1>
             <p class="splash-subtitle">Hello po!, tuloy po kayo!</p>
@@ -4243,7 +4398,6 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills-education">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="#" id="clientPortfolioBtn" style="color: var(--primary-gold); font-weight: 500;">🔒 Clients Web</a></li>
             </ul>
             <div class="mobile-menu-btn">
                 <span></span>
@@ -4296,7 +4450,7 @@
                     <div class="about-image-decoration"></div>
                     <div class="about-image-frame">
                         <div class="about-image-inner">
-                            <img src="images/3.png" alt="Rozel O. Ramos" class="about-photo">
+                            <img src="images/new.png" alt="Rozel O. Ramos" class="about-photo">
                         </div>
                     </div>
                 </div>
@@ -5413,6 +5567,70 @@
                 close: closeLightbox
             };
         })();
+    </script>
+
+    <script>
+        // ========================================
+        // SPLASH SCREEN PARTICLES
+        // ========================================
+        // SPLASH SCREEN PARTICLES (FROM BOTTOM AND TOP)
+        // ========================================
+        (function() {
+            const splashParticlesContainer = document.getElementById('splashParticlesContainer');
+            if (splashParticlesContainer) {
+                const particleCount = 40;
+                
+                // Create particles floating UP from bottom
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'splash-particle';
+                    
+                    // Random size
+                    const sizes = ['small', 'medium', 'large'];
+                    const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+                    particle.classList.add(randomSize);
+                    
+                    // Random horizontal position
+                    particle.style.left = Math.random() * 100 + '%';
+                    // Start from bottom of screen
+                    particle.style.bottom = (Math.random() * 20 - 10) + 'vh';
+                    
+                    // Random animation delay
+                    particle.style.animationDelay = Math.random() * 3 + 's';
+                    
+                    splashParticlesContainer.appendChild(particle);
+                }
+                
+                // Create particles floating DOWN from top
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'splash-particle from-top';
+                    
+                    // Random size
+                    const sizes = ['small', 'medium', 'large'];
+                    const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+                    particle.classList.add(randomSize);
+                    
+                    // Random horizontal position
+                    particle.style.left = Math.random() * 100 + '%';
+                    // Start from top of screen
+                    particle.style.top = (Math.random() * 20 - 10) + 'vh';
+                    
+                    // Random animation delay
+                    particle.style.animationDelay = Math.random() * 3 + 's';
+                    
+                    splashParticlesContainer.appendChild(particle);
+                }
+            }
+        })();
+        
+        // Hide splash screen after 2 seconds
+        window.addEventListener('load', () => {
+            const splashScreen = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splashScreen.classList.add('hidden');
+            }, 2000);
+        });
     </script>
 </body>
 
