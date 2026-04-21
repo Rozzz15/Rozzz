@@ -24,20 +24,23 @@ const siteData = {
   label: "Get to Know Me",
   title: "About Me",
   heading: "Empowering <span>Ideas</span> Through Code",
-  bio: [
-  "Hello! My name is Rozel O. Ramos, a BSIT student and a graduate of DICT at Polytechnic University of the Philippines (PUP). I am passionate about building innovative digital solutions, including websites, applications, and system-based projects.",
-  "I enjoy transforming ideas into functional, user-friendly designs while continuously learning new technologies to improve my skills. My goal is to create efficient, visually appealing, and reliable applications that solve real-world problems."
+bio: [
+  "I'm a dedicated and detail-oriented professional with experience in admissions support, administrative tasks, and IT/web development. In my role as an Admissions Assistant, I handle student applications, ID and credential processing, and document management, ensuring accuracy and efficiency at every step.",
+  "Alongside my administrative work, I have a passion for creating professional web and mobile portfolios, building responsive websites and mobile app demos that showcase client projects with a clean, user-friendly design.",
+  "I also bring skills as a Virtual Assistant, including data entry, scheduling, email management, and client communication, allowing me to provide reliable support in both administrative and digital spaces.",
+  "I'm organized, proactive, and adaptable, always striving to deliver quality work and support teams effectively. I enjoy learning new technologies and taking on projects that challenge me to grow professionally.",
+  "📌 Let's connect! I'm open to Web & Mobile Development opportunities, Virtual Assistant roles, and administrative positions where I can contribute and learn."
   ],
   stats: [
   { number: 4, label: "Years Experience" },
-  { number: 8, label: "Projects Completed" },
+  { number: 73, label: "Projects Completed" },
   { number: 24, label: "Happy Clients" }
   ]
   },
   resume: {
   summary: [
   "Passionate professional dedicated to delivering excellence in every project. With a keen eye for detail and a commitment to quality, I specialize in creating digital experiences that leave lasting impressions. My approach combines creativity with technical expertise, ensuring that each project not only meets but exceeds expectations.",
-  "Currently pursuing a Bachelor of Science in Information Technology and a graduate of DICT at PUP, I focus on building efficient and reliable applications that solve real-world problems."
+  "A graduate of Bachelor of Science in Information Technology and DICT at PUP, I focus on building efficient and reliable applications that solve real-world problems."
   ],
   experience: [
   {
@@ -68,7 +71,7 @@ const siteData = {
   education: [
   {
   degree: "BS in Information Technology",
-  period: "Current",
+  period: "Graduated",
   school: "Polytechnic University of the Philippines (PUP)",
   description: "Focused on software development, cloud systems, and innovative IT solutions."
   },
@@ -162,6 +165,39 @@ const siteData = {
 const projectsData = [
   {
   id: 1,
+  title: "Cassiopeia Portfolio",
+  category: "Web Portfolio",
+  description: "A refined and modern portfolio platform showcasing elegant design principles with seamless navigation and immersive visual storytelling. Features smooth transitions, responsive layouts, and a premium aesthetic that highlights creative work with clarity and sophistication.",
+  image: ["images/cas.png", "images/cas1.png", "images/cas2.png", "images/cas3.png", "images/cas4.png", "images/cas5.png", "images/cas6.png", "images/cas7.png", "images/cas8.png"],
+  video: "videos/cas.mp4",
+  link: "https://casporfolio.netlify.app/",
+  featured: true,
+  date: "2026-04-21"
+  },
+  {
+  id: 2,
+  title: "Eros Portfolio",
+  category: "Web Portfolio",
+  description: "A sleek and contemporary digital portfolio designed for creative professionals. Showcases work through elegant typography, smooth animations, and a cohesive visual identity that leaves a lasting impression.",
+  image: ["images/eros.png", "images/eros1.png", "images/eros2.png", "images/eros3.png", "images/eros4.png", "images/eros5.png", "images/eros6.png"],
+  video: "videos/eros.mp4",
+  link: "https://romanerosportfolio.netlify.app/",
+  featured: true,
+  date: "2026-04-21"
+  },
+  {
+  id: 3,
+  title: "Chesca Portfolio",
+  category: "Web Portfolio",
+  description: "An artistic and polished portfolio featuring a clean layout with responsive design and intuitive navigation. Highlights creative projects with high-quality imagery and modern styling for a professional online presence.",
+  image: ["images/che.png", "images/che1.png", "images/che2.png", "images/che3.png", "images/che4.png"],
+  video: "videos/che.mp4",
+  link: "https://chescatoledoportfolio.netlify.app/",
+  featured: false,
+  date: "2026-04-21"
+  },
+  {
+  id: 4,
   title: "Jimuel Gonzales",
   category: "Web Portfolio",
   description: "Jimuel Gonzales is a visual storyteller and photographer showcasing a refined digital portfolio focused on emotion-driven imagery and timeless aesthetics. The website presents selected works across editorial, lifestyle, fashion, and fine art portraiture, highlighting a strong artistic vision and thoughtful design. It features a professional biography, curated portfolio, and clear contact section for collaborations and booking inquiries. This platform serves as both a creative showcase and a professional branding tool, designed to engage clients, collaborators, and industry partners.",
@@ -171,7 +207,7 @@ const projectsData = [
   date: "2024-01-15"
   },
   {
-  id: 2,
+  id: 5,
   title: "Monica Portfolio",
   category: "Web Portfolio",
   description: "Monica Portfolio is a sophisticated digital platform tailored for high-end fashion and lifestyle content. It features a curated selection of creative projects, emphasizing timeless elegance and premium positioning. The site integrates a cohesive visual identity with modern navigation, providing an immersive experience for industry professionals and fashion enthusiasts alike. Designed as a comprehensive branding tool, it showcases a unique artistic perspective through high-quality imagery and thoughtful editorial layouts.",
@@ -181,7 +217,7 @@ const projectsData = [
   date: "2023-11-20"
   },
   {
-  id: 3,
+  id: 6,
   title: "Patrick David Rosario",
   category: "Web Portfolio",
   description: "Patrick David Rosario's portfolio is a dynamic showcase of creative digital design and mobile-first experiences. It highlights a specialized focus on intuitive user interfaces and seamless interaction design, blending modern aesthetic patterns with functional excellence. The platform serves as a professional gateway for design collaborations, featuring a robust gallery of work that emphasizes accessibility, smooth animations, and a user-centric approach to digital storytelling in the mobile landscape.",
@@ -191,7 +227,7 @@ const projectsData = [
   date: "2023-09-05"
   },
   {
-  id: 4,
+  id: 7,
   title: "Vincent Carl Matucabe",
   category: "Web Portfolio",
   description: "Vincent Carl Matucabe's platform represents the intersection of technical engineering and modern web architecture. This comprehensive web application showcase highlights scalable infrastructure, robust API integrations, and cloud-native solutions. Built with a focus on reliability and high performance, the portfolio demonstrates a mastery of full-stack development practices, offering a professional lens into complex system designs and modern software development cycles for enterprise-level digital solutions.",
@@ -201,7 +237,7 @@ const projectsData = [
   date: "2023-05-12"
   },
   {
-  id: 5,
+  id: 8,
   title: "Luis Fernandez",
   category: "Web Portfolio",
   description: "Luis Fernandez Portfolio is a professional corporate-focused digital presence designed for streamlined information delivery and brand authority. It features a responsive layout and an integrated content management strategy that allows for seamless updates and professional project tracking. The website is optimized for modern business environments, emphasizing clean typography, intuitive navigation, and a structured presentation of professional services and achievements.",
@@ -211,7 +247,7 @@ const projectsData = [
   date: "2023-04-10"
   },
   {
-  id: 6,
+  id: 9,
   title: "Jasmine H. Monterde",
   category: "Web Portfolio",
   description: "Jasmine H. Monterde Portfolio is a premium healthcare-oriented digital platform crafted to convey professionalism, reliability, and operational excellence. It incorporates a responsive interface and a refined content system that enables streamlined updates and clear service representation. Designed for modern medical and clinical environments, the site prioritizes elegant typography, intuitive navigation, and structured layouts that elevate brand authority, service clarity, and professional credibility.",
@@ -221,7 +257,7 @@ const projectsData = [
   date: "2023-04-10"
   },
   {
-  id: 7,
+  id: 10,
   title: "EYIR Medical Clinic",
   category: "Website",
   description: "EYIR Medical Clinic Website is a premium healthcare-focused digital platform designed to reflect professionalism, trust, and clinical excellence. The site features a fully responsive layout and an organized content management system, enabling seamless updates and clear presentation of services. Tailored for modern medical and clinic environments, it emphasizes refined typography, intuitive navigation, and structured layouts to strengthen brand authority, showcase services with clarity, and reinforce professional credibility.",
@@ -231,7 +267,7 @@ const projectsData = [
   date: "2023-04-10"
   },
   {
-  id: 8,
+  id: 11,
   title: "Kainan sa Garahe",
   category: "Website",
   description: "Kainan Sa Garahe Website is a premium restaurant-focused digital platform designed to reflect warmth, authenticity, and culinary excellence. The site features a fully responsive layout and a structured content management system, enabling seamless updates and a clear presentation of menus, promotions, and services. Tailored for modern dining experiences, it emphasizes clean typography, intuitive navigation, and organized layouts to strengthen brand identity, showcase signature dishes with clarity, and reinforce the restaurant’s reputation for quality food and inviting ambiance.",
@@ -239,6 +275,61 @@ const projectsData = [
   link: "https://kainansagaraherestu.netlify.app/",
   featured: false,
   date: "2023-04-10"
+  },
+  {
+  id: 12,
+  title: "Duyanan Restaurant",
+  category: "Website",
+  description: "Duyanan Restaurant Website is a warm and inviting digital presence for a local Filipino restaurant celebrating traditional cuisine. The site features a fully responsive layout with a rustic-modern aesthetic, showcasing menu offerings, restaurant history, and ambiance through high-quality imagery. It includes organized sections for menu categories, location details, and contact information, providing customers with a seamless browsing experience. Designed to capture the restaurant's authentic flavors and welcoming atmosphere, the website helps promote the business and attract new diners.",
+  image: ["images/duyan1.png", "images/duyan2.png", "images/duyan3.png", "images/duyan4.png", "images/duyan5.png", "images/duyan6.png", "images/duyan7.png", "images/duyan8.png"],
+  video: "videos/Duyanan.mp4",
+  link: "https://duyananrestaurant.netlify.app/",
+  featured: false,
+  date: "2026-04-21"
+  },
+  {
+  id: 13,
+  title: "Jake Portfolio",
+  category: "Web Portfolio",
+  description: "Jake Portfolio is a dynamic and modern digital portfolio designed for creative professionals. Features a bold visual identity with interactive elements, smooth scrolling animations, and a clean layout that emphasizes visual content. The site effectively showcases projects and creative work through an engaging user experience.",
+  image: ["images/jake.png", "images/jake1.png", "images/jake2.png", "images/jake3.png", "images/jake4.png", "images/jak5.png"],
+  video: "videos/jake.mp4",
+  link: "https://jakecastroportfolio.netlify.app/",
+  featured: false,
+  date: "2026-04-21"
+  },
+  {
+  id: 14,
+  title: "Jenefer Portfolio",
+  category: "Web Portfolio",
+  description: "Jenefer Portfolio is an elegant and sophisticated digital showcase featuring a refined layout with smooth animations and responsive design. The portfolio highlights creative work through a professional lens with clean typography and organized galleries that reflect style and creativity.",
+  image: ["images/jen.png", "images/jen1.png", "images/jen2.png", "images/jen3.png", "images/jen4.png"],
+  video: "videos/jen.mp4",
+  link: "https://jeneferuson.netlify.app/",
+  featured: false,
+  date: "2026-04-21"
+  },
+  {
+  id: 15,
+  title: "Kaiza Portfolio",
+  category: "Web Portfolio",
+  description: "Kaiza Portfolio is a sleek and contemporary digital portfolio featuring a modern design with interactive galleries and smooth transitions. The site showcases creative work through an immersive layout with responsive navigation and a professional aesthetic that highlights individual projects.",
+  image: ["images/kai.png", "images/kai1.png", "images/kai2.png", "images/kai3.png", "images/kai4.png", "images/kai5.png", "images/kai6.png", "images/kai7.png"],
+  video: "videos/kai.mp4",
+  link: "https://kaizacatedralportfolio.netlify.app/",
+  featured: false,
+  date: "2026-04-21"
+  },
+  {
+  id: 16,
+  title: "Louise Portfolio",
+  category: "Web Portfolio",
+  description: "Louise Portfolio is a stylish and artistic digital showcase featuring the Freedom Girl theme with elegant typography and smooth animations. The portfolio presents creative work through a unique visual narrative with a modern layout that captures creativity and personal expression.",
+  image: ["images/lou.png", "images/lou1.png", "images/lou2.png", "images/lou3.png", "images/lou4.png", "images/lou5.png"],
+  video: "videos/lou.mp4",
+  link: "https://louisefreedomportfolio.netlify.app/",
+  featured: false,
+  date: "2026-04-21"
   }
 
 ];
